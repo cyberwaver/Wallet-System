@@ -20,7 +20,6 @@ class UserController extends BaseController {
     const { getUser, getWalletsByOwnerId, getUserWalletsTransactions } = req.container.cradle;
     this.task(async () => {
       const user = await getUser.execute(req.params.id);
-
       user.wallets = await getWalletsByOwnerId.execute(user.id);
       user.transactions = await getUserWalletsTransactions.execute(user.id);
       return user;

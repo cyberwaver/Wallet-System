@@ -1,6 +1,7 @@
 const { ApplicationException } = require("../exceptions");
 const checkRule = require("../utils/checkRule");
 const {
+  WalletTransferTxnCannotBeBetweenSameWallets,
   WalletBalanceShouldNotBeLessThanAmount,
   WalletBalanceAfterDebitShouldNotBeLessThanMin,
 } = require("../usecases/wallet/rules/wallet.rules");
@@ -22,6 +23,7 @@ class WalletTransferTxnModule {
 
   async createNewTxn(txnData) {
     const data = await this.walletValidator.validateNewWalletTransferTxnData(txnData);
+    await checkRule(WalletTransferTxnCannotBeBetweenSameWallets(data.fromWalletId, data.toWalletId));
     const wallet = await this.walletsRepo.getById(data.fromWalletId);
     await checkRule(WalletBalanceShouldNotBeLessThanAmount(wallet, data.amount));
     await checkRule(WalletBalanceAfterDebitShouldNotBeLessThanMin(wallet, data.amount, this.walletTypesRepo));

@@ -1,14 +1,20 @@
 const httpStatus = require("http-status");
 const { NotFoundException, ApplicationException, ValidationException } = require("../../../exceptions");
 
+const defaultContext = JSON.stringify({
+  asyncTask: Promise.resolve(),
+  onSuccess: {},
+  onFailure: {},
+});
+
 class BaseController {
   constructor() {
-    this.__executionContext = {
-      asyncTask: Promise.resolve(),
-      onSuccess: {},
-      onFailure: {},
-    };
+    this._resetExecutionContext();
     this.options = {};
+  }
+
+  _resetExecutionContext() {
+    this.__executionContext = JSON.parse(defaultContext);
   }
 
   extractPaginationOpts(query) {
@@ -16,6 +22,7 @@ class BaseController {
   }
 
   task(asyncTask, ...args) {
+    this._resetExecutionContext();
     this.__executionContext.asyncTask = asyncTask;
     this.__executionContext.asyncTaskArgs = args;
     return this;
