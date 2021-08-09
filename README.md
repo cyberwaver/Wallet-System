@@ -29,6 +29,14 @@ Start server
 yarn dev
 ```
 
+Test
+
+```bash
+yarn test:usecases
+```
+
+_With more time: I would have written complete usecases test, nevertheless, the tests written covered the core parts._
+
 ## Application Endpoints
 
 pagination params: `{page: number, pageSize: number (default: 20)}`
