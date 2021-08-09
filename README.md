@@ -79,9 +79,9 @@ pagination params: `{page: number, pageSize: number (default: 20)}`
 
 ![Clean Architecture Image](/assets/clean-architecture-2.jpeg)
 
-The architecture design for this application is based on inspiration from the clean architecture by Robert C. Martin (Uncle Bob)
+The architecture design inspiration for this application is based on clean architecture by Robert C. Martin (Uncle Bob)
 
-The design enforces loose-coupling amount components.
+The design enforces loose-coupling among components.
 
 Based on the onion architecture which can be traced back to the layering approach of network computers OSI model.
 
